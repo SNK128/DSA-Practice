@@ -34,7 +34,7 @@ class Kqueue{
     {
         //overflow
         if(freespot==-1){
-            cout<<"NO Empty space is presenr"<<endl;
+            cout<<"NO Empty space is present"<<endl;
             return;
         }
         //find first free index
@@ -63,10 +63,40 @@ class Kqueue{
 
     }
 
+    int dequeue(int qn)
+    {
+        //underflow
+        if(front[qn-1]==-1)
+        {
+            cout<<"Queue Underflow"<<endl;
+            return -1;
+        }
+
+        //find index to pop
+        int index=front[qn-1];
+
+        //front ko aage badhao
+        front[qn-1]=next[index];
+
+        //freespot ko manage karo
+        next[index]=freespot;
+        freespot=index;
+        
+
+        return arr[index];
+    }
+
 };
 
 int main()
 {
     cout<<"Hello";
+    Kqueue q(10,3);
+
+    q.enqueue(10,1);
+    q.enqueue(15,1);
+    q.enqueue(20,2);
+    q.enqueue(25,1);
+    cout<<q.dequeue(2);
     return 0;
 }
