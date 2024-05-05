@@ -1,3 +1,5 @@
+//Implement K queues in an array
+
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -48,7 +50,7 @@ class Kqueue{
             front[qn-1]=index;
         }
         else{
-            //link new ele to prev ele
+             //link new ele to prev ele
             next[rear[qn-1]]=index;
         }
 
