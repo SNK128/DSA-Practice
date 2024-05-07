@@ -1,10 +1,12 @@
 // C++ program to find sum of all minimum and maximum
 // elements Of Sub-array Size k.
+
+
+//TC=(n^2)*k 
 #include <bits/stdc++.h>
 using namespace std;
 
-// Returns sum of min and max element of all subarrays
-// of size k
+//TC=(n^2)*k 
 int SumOfKsubArray(int arr[], int N, int k)
 {
 	// To store final answer
@@ -38,18 +40,40 @@ int SumOfKsubArray(int arr[], int N, int k)
 	return sum;
 }
 
+//TC=(n)*k 
+int solve(int arr[],int n,int k)
+{
+    int sum=0;
+    for(int i=0;i<n-k;i++)
+    {
+        int maxi=INT_MIN;
+        int mini=INT_MAX;
+        for(int j=i;j<k;j++)
+        {
+            maxi=max(maxi,arr[j]);
+            mini=min(mini,arr[j]);
+        }
+        sum+=mini+maxi;
+    }
+    return sum;
+}
+int optimised(int arr[],int n,int k)
+{
+	
+}
+
 // Driver program to test above functions
 int main()
 {
 	int arr[] = { 2, 5, -1, 7, -3, -1, -2 };
 	int N = sizeof(arr) / sizeof(arr[0]);
 	int k = 3;
-	cout << SumOfKsubArray(arr, N, k);
-	return 0;
-}
+	cout << SumOfKsubArray(arr, N, k)<<endl;
+    cout << solve(arr, N, k)<<endl;
+	cout << optimised(arr, N, k)<<endl;
 
 
-int main()
-{
     return 0;
 }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
