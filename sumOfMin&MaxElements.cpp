@@ -59,7 +59,7 @@ int solve(int arr[],int n,int k)
 }
 int optimised(int arr[],int n,int k)
 {
-	
+	//
 }
 
 // Driver program to test above functions
