@@ -41,25 +41,69 @@ int SumOfKsubArray(int arr[], int N, int k)
 }
 
 //TC=(n)*k 
-int solve(int arr[],int n,int k)
+int solve(int arr[],int n,int k)  // { 2, 5, -1, 7, -3, -1, -2 };
 {
     int sum=0;
-    for(int i=0;i<n-k;i++)
+    for(int i=0;i<n-k+1;i++)
     {
         int maxi=INT_MIN;
         int mini=INT_MAX;
-        for(int j=i;j<k;j++)
+        for(int j=i;j<i+k;j++)
         {
             maxi=max(maxi,arr[j]);
             mini=min(mini,arr[j]);
         }
         sum+=mini+maxi;
+        //  cout<<mini<<" "<<maxi<<" "<<sum<<endl;
     }
     return sum;
 }
+
+
+//TC:O(n)
+//SC:O(k)
 int optimised(int arr[],int n,int k)
 {
-	//
+	deque<int> maxi(k);
+	deque<int> mini(k);
+	int sum=0;
+
+	for(int i=0;i<k;i++)
+	{
+		while(!mini.empty()&&arr[mini.back()]>=arr[i])
+		mini.pop_back();
+
+		while(!maxi.empty()&&arr[maxi.back()]<=arr[i])
+		maxi.pop_back();
+
+		mini.push_back(i);
+		maxi.push_back(i);
+	}
+	sum+=arr[mini.front()]+arr[maxi.front()];
+
+	for(int i=k;i<n;i++)
+	{
+		while(!mini.empty()&&mini.front()<=i-k)
+		mini.pop_front();
+
+		while(!maxi.empty()&&maxi.front()<=i-k)
+		maxi.pop_front();
+
+		while(!mini.empty()&&arr[mini.back()]>=arr[i])
+		mini.pop_back();
+
+		while(!maxi.empty()&&arr[maxi.back()]<=arr[i])
+		maxi.pop_back();
+
+		mini.push_back(i);
+		maxi.push_back(i);
+
+		sum+=arr[mini.front()]+arr[maxi.front()];
+	}
+
+
+	return sum;
+
 }
 
 // Driver program to test above functions
